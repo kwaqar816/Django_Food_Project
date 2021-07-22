@@ -1,0 +1,58 @@
+ul.row{
+ list-style-type:none;
+ display:inline-flex;
+ }
+ ul.row li{
+ }
+ .circle{
+ margin:30px;
+  padding:50px;
+  height:150px;
+  width:150px;
+  border-radius:90px;
+  cursor:pointer;
+ }
+ .circle .text{
+ font-size:1.5em;
+ color:#fff;
+ text-align:center;
+ }
+ .circle .text .badge{
+ background-color:black;
+ margin-top:10px;
+ }
+ .food{
+  background-image: linear-gradient(#9ACD32, #228B22);
+}
+.customer{
+  background-image: linear-gradient(#90EE90, #7FFF00);
+}
+.order{
+  background-image: linear-gradient(#32CD32, #7CFC00);
+  }
+.amount{
+  background-image: linear-gradient(#90EE90, #ADFF2F);
+  }
+
+
+ ul.row1{
+
+ }
+ ul.row1 li{
+ float:left;
+ list-style-type:none;
+ }
+ .square{
+ margin:50px;
+  padding:20px;
+  height:80px;
+  width:120px;
+  border-radius:30px;
+  cursor:pointer;
+  background-image: linear-gradient(powderblue, blue);
+ }
+ .square .text{
+ font-size:2em;
+ color:#fff;
+ text-align:center;
+ }

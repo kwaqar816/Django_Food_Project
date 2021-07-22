@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>web page</title>
+<style>
+table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+    {% include 'foodapp/header.html' %}
+<form action="/addorders/" method="POST" align="center" enctype="multipart/form-data">
+{% csrf_token %}
+<table border="2px" width="90%" cellpadding="5px" cellspacing="0px">
+
+<tr>
+    <th>Food</th>
+    <th>Per Price</th>
+    <th>Quantity</th>
+    <th>Total</th>
+    <th>Action</th>
+</tr>
+{% for item in cart %}
+<tr>
+    <td>
+    <label>{{item.fid.name}}</label><br>
+    <img src="{{item.fid.image.url}}" alt="img" height="150" width="150">
+    </td>
+    <td><label id='price{{item.id}}'>{{item.fid.price}}</label></td>
+    <td><input type="number" data-itemId={{item.id}} name="itemquantity" min='1' value="{{item.itemquantity}}" class="qnt"></td>
+    <td><input type="text" name="total" value="{{item.total}}" id="cost{{item.id}}" class="total" readonly ></td>
+    <td>{% if perms.foodapp.delete_cart %}
+        <a href="/deletecart/{{item.id}}">Delete</a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+<div>
+    <label>total amount</label>
+    <input type="text" id="totalamount" name="totalbill" value='0' readonly>
+    <input type="submit" value="order place">
+</div>
+
+</form>
+{% include 'foodapp/footer.html' %}
+<script>
+$(document).ready(function(){
+    
+    $(".qnt").change(function(){
+        calculatetotal(this);
+    })
+});
+function calculatetotal(ctrl)
+{
+    var quantity=Number($(ctrl).val());
+    id=$(ctrl).attr('data-itemId');
+    perprice=$('#price'+id).html();
+    update(quantity,perprice,id);
+}
+function update(quantity,perprice,id)
+{
+    $.ajax({
+    url:'/updatecart/',
+    method:'POST',
+    async:true,
+    cache:false,
+    data:{'q':quantity,'csrfmiddlewaretoken':'{{csrf_token}}','id':id,'p':perprice},
+    success:function(response)
+    {
+        console.log(response);
+        $('#cost'+id).val(response.amount);
+        $('#totalamount').val(response.bill);
+
+    },
+    error:function()
+    {
+
+    }
+    });
+}
+
+</script>
+</body>
+</html>

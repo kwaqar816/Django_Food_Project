@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello</h1>
+    {% for data in data %}
+    
+    
+    
+    <table style="width:50%">
+        <thead>
+            <tr>
+                <td>Customer</td>
+                <td>Total amount</td>
+                
+            </tr>
+            <tbody>
+                <tr>
+                    <td>{{data.customer}}</td>
+                    <td>{{data.totalamount}}</td>
+                 
+                </tr>
+            </tbody>
+        </thead>
+        {% endfor %}
+    </table>
+

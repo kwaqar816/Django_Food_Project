@@ -1,0 +1,121 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show food</title>
+    <style>
+        .success{
+            position: fixed;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 25px;
+            height: 50px;
+            color:red;
+            border: 5px solid #e60000;
+            background-color: pink;
+        }
+
+        .error{
+            top:0;
+            padding: 10px;
+            border: 5px solid #e60000;
+            background-color: #ffb3b3;
+            font-weight: bold;
+            height: 50px;
+            max-width: 200px;
+            text-align: center;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    {% include 'Foodapp/header.html' %}
+    <div id="msg"> </div>
+    <form method='POST' align='center' enctype="multipart/form-data">
+   
+    {% csrf_token %}
+    <table id="tbItems" class="table table-hover" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Types</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+            {% for f in food %}
+        
+        <tbody>
+            <tr>
+                <td>{{f.name}}</td>
+                <td id="price">{{f.price}}</td>
+                <td>{{f.quantity}}</td>
+                <td>{{f.types}}</td>
+                <td>{{f.category}}</td>
+                <td><img src="{{f.image.url}}" alt="img" height="120" width="140"></td>
+
+            <td>
+                {% if perms.Foodapp.change_food %}
+                <a href="/updatefood/{{f.id}}">Edit</a>
+                <a href="/deletefood/{{f.id}}">Delete</a>
+                {% endif %}
+                {% if perms.Foodapp.view_cart %}
+                {% if f.id not in cartdata %}
+                <a href="#" class="addtocart btn btn-primary" id="{{f.id}}">Add to cart</a>
+                {% else %}
+                <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                {% endif %}
+                {% endif %}
+            </td>
+
+            </tr>
+        </tbody>
+
+
+        {% endfor %}
+
+    </table>
+    
+</form>
+{% include 'Foodapp/footer.html' %}
+<script>
+    $(document).ready(function(){
+        $('.addtocart').click(function(){
+            $.ajax({
+                url:'/addtocart',
+                method:'GET',
+                cache:false,
+                data:{'foodid':$(this).attr("id")},
+                success:
+                function()
+                {
+                    $('#msg').html('item has been added');
+                    $('#msg').addClass('success').fadeOut(5000);
+                    $('#msg').removeClass('error');
+
+                },
+                error:
+                function()
+                {
+                    $('#msg').html('some error occured');
+                    $('#msg').addClass('error')
+                    $('#msg').removeClass('successs');
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html> 
+
+
+

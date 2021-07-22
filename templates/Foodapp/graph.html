@@ -1,0 +1,30 @@
+<html>
+<head>
+{% load static %}
+ {% include "foodapp/header.html" %}
+ <link rel="stylesheet" type="text/css" href="{% static 'css/graph.css' %}">
+</head>
+<body>
+ <ul class='row'>
+ <li class='circle food'>
+ <div class="text">
+	Total Food Items <span class="badge">{{fcount}}</span>
+	</div>
+</li>
+ <li class='circle customer'>
+ <div class="text">Total Users <span class="badge">{{ccount}}</span></div></li>
+ <li class='circle order'><div class="text">Total Orders <span class="badge">{{ocount}}</span></div></li>
+ <li class='circle amount'><div class="text">Total Order Amount <span class="badge">{{total}}</span></div></li>
+ </ul>
+ 
+ <ul class='row1'>
+ <li class='square foodg'><a class="text" href="/customergraph">Graph1</a></li>
+ <li class='square customerg'><a class="text" href="/categorygraph"> Graph2</a></li>
+ <li class='square orderg'><a class="text" href="/ordergraph" >Graph3 </a></li>
+ <li class='square amountg'><a class="text" href="/ccountgraph" >Graph4</a></li>
+ </ul>
+
+
+ <!-- include "food_app/footer.html" -->
+</body>
+</html>

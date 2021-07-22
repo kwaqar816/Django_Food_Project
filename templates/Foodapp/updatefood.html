@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    <form method="POST">
+        
+        <table align="center">
+            <tr>
+                <td><b>Food:id</b></td>
+                <td><input type="text" name="id" readonly value="{{food.id}}"></td>                 
+            </tr>
+            <tr>
+                <td><b>Food Name:</b></td>
+                <td><input type="text" name="name" value="{{food.name}}"></td>
+            </tr>
+            <tr>
+                <td><b>Food Category:</b></td>
+                <td><input type="text" name="category" value="{{food.category}}"></td>
+            </tr>
+            <tr>
+                <td><b>Food Quantity</b></td>
+                <td><input type="text" name="quantity" value="{{food.quantity}}"></td>
+            </tr>
+            <tr>
+                <td><b>Food Type</b></td>
+                <td><input type="text" name="types" value="{{food.types}}"></td>
+            </tr>
+            <tr>
+                <td><b>Food Price</b></td>
+                <td><input type="text" name="price" value="{{food.price}}"></td>
+            </tr>
+            <tr>
+                <td><b>Food Image</b></td>
+                <td><input type="file" name="image" value="{{f.image.url}}"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="update Food"></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
+
+        </table>
+        {% csrf_token %}
+
+    </form>
+</body>
+</html>
